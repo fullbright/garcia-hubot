@@ -1,0 +1,12 @@
+[Unit]
+Description=Start the slack hubot on startup
+After=tlp-init.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=no
+ExecStart=/opt/garcia-hubot/start-hubot.sh
+
+[Install]
+WantedBy=multi-user.target
+
