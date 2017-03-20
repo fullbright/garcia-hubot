@@ -14,6 +14,9 @@
 #   list me my * logs - prints the list of all the available logs. Default is useless. Other values : replay, docker
 #   what are the * logs - same as list me my * logs.
 #   turn on tv - turn on the TV ;)
+#   download replays - Downloads the configured replays.
+#   host lookup <host> - look up the host in the internet
+#   youtube replays file types - print which types of file we have in the youtube folder
 #
 # Notes:
 #   Still work in progress.
@@ -56,6 +59,41 @@ module.exports = (robot) ->
     robot.hear /mylogs/i, (res) ->
         # when we hear the log file
         res.send 'here are the logs generated on the server'
+
+    robot.hear /download replays/i, (res) ->
+        @exec = require('child_process').exec
+        command = "/home/fullbright/fr-replay-downloader/download_all.sh"
+
+        res.send "Executing command #{command}"
+
+        @exec command, (error, stdout, stderr) ->
+            res.send error
+            res.send stdout
+            res.send stderr
+
+    robot.respond /host lookup (.*)$/i, (msg) ->
+        hostname = msg.match[1]
+        @exec = require('child_process').exec
+        command = "host #{hostname}"
+
+        msg.send "Looking up #{hostname}..."
+        msg.send "This is the command #{command}."
+
+        @exec command, (error, stdout, stderr) ->
+            msg.send error
+            msg.send stdout
+            msg.send stderr
+
+    robot.respond /youtube replays file types/i, (res) ->
+        command = "find /home/fullbright/fr-replay-downloader/youtube/watchlater/ -type f -name \"*.*\" | awk -F. '{print $NF}' | sort -u"
+
+        @exec = require('child_process').exec
+        res.send "Issuing command #{command}"
+
+        @exec command, (error, stdout, stderr) ->
+            res.send error
+            res.send stdout
+            res.send stderr
 
     robot.respond /list me my (.*) logs/i, (res) ->
         # what we will respond
