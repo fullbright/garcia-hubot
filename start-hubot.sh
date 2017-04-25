@@ -12,6 +12,7 @@ if [ -f .env ]; then
   source .env
 fi
 
+#./bin/hubot -a slack --disable-httpd 
 ./bin/hubot -a slack 
 
 echo "Hubot started"
