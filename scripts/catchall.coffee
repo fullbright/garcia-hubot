@@ -27,7 +27,7 @@ module.exports = (robot) ->
              #msg.send data
              #msg.send "We got a response from the bot."
              botresponse = body.match(/<that>(.*)<\/that>/)
-             msg.send botresponse[1]
+             msg.send botresponse[1].replace(/&amp;/g, '&' ).replace(/&lt;/g, '<').replace(/&quot;/g, '"').replace(/&#039;/g, '\'')
             else
               Wolfram.query matches[1], (e, result) ->
                 if result and result.length > 0
