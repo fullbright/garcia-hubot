@@ -104,13 +104,13 @@ module.exports = (robot) ->
         res.emote "let me get those #{logType} for you"
 
     robot.hear /turn on tv/i, (response) ->
-        url = "http://"+ tvIpaddress +":8080/remoteControl/cmd?operation=01&key=116&mode=0"
+        url = "http://#{tvIpaddress}:8080/remoteControl/cmd?operation=01&key=116&mode=0"
         robot.http(url)
             .header('Accept', 'application/json')
             .get() (err, res, body) ->
 
             if response.getHeader('Content-Type') isnt 'application/json'
-                res.send "Didn't get back JSON :("
+                response.send "Didn't get back JSON :("
                 return
 
             if err
