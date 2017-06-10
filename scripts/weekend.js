@@ -12,13 +12,12 @@
 //   hubot is it holiday ?  - returns whether is it holiday or not
 
 b3 = {}
-b3new = require('../b3core.0.1.0.js');
+b3new = require('../external-libs/b3core.0.1.0.js');
 
 module.exports = function(robot) {
     robot.respond(/is it (weekend|holiday)\s?\?/i, function(msg){
-        var today = new Date();
-
-        msg.reply(today.getDay() === 0 || today.getDay() === 6 ? "YES" : "NO");
+        //var today = new Date();
+        //msg.reply(today.getDay() === 0 || today.getDay() === 6 ? "YES" : "NO");
 
         console.log(b3.VERSION);
 
@@ -26,8 +25,12 @@ module.exports = function(robot) {
         var custom = new MyCustomClass(); // will call initialize.
         var StringShorterer = b3.Class(b3.Action);
         var StringAppender = b3.Class(b3.Action);
+
+        var WeekendChecker = b3.Class(b3.Action);
+
         StringShorterer.prototype.name = "StringShorterer";
         StringAppender.prototype.name = "StringAppender";
+        WeekendChecker.prototype.name = "WeekendChecker";
 
         var blackboard = new b3.Blackboard();
         var tree = new b3.BehaviorTree();
@@ -35,7 +38,7 @@ module.exports = function(robot) {
         var node2 = new StringAppender();
         var target = "this is a pseudo random string"
 
-        tree.root = new b3.Sequence({children: [
+        /****tree.root = new b3.Sequence({children: [
             new b3.Sequence({children: [
                 new StringShorterer(),
                 new StringAppender(),
@@ -43,6 +46,24 @@ module.exports = function(robot) {
                 new StringShorterer()
             ]}),
         ]});
+        ***/
+
+        tree.root = new b3.Sequence(
+            {
+                children: [
+                    new WeekendChecker(),
+                ]
+            }
+        );
+
+        WeekendChecker.prototype.tick = function(tick)
+        {
+            console.log("Weekend checker. Before : " + tick.target);
+            var today = new Date();
+            tick.target = today.getDay() === 0 || today.getDay() === 6 ? "YES" : "NO" 
+            console.log("Weekend checker. After : " + tick.target);
+            msg.reply(tick.target);    
+        }
 
         StringShorterer.prototype.tick = function(tick)
         {
@@ -75,11 +96,8 @@ module.exports = function(robot) {
         var value = blackboard.get('test-nodevariable', tree.id, node.id);
         console.log(value);
 
-        //for (var i = 10 - 1; i >= 0; i--) 
-        //{
-            tree.tick(target, blackboard);
-        //}
-
+        tree.tick(target, blackboard);
+        msg.reply(target);
     });
 }
 
