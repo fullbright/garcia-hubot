@@ -33,15 +33,15 @@ friendUsername = "fullbright"
 
 module.exports = (robot) ->
 
-    robot.listen(
-        (message) -> # Match function
-            # Occassionally respond to things that Steve says
-            message.user.name is friendUsername and Math.random() > 0.8
-        (response) -> # Standard listener callback
-            # Let Steve know how happy you are that he exists
-            friendReplies = ['Hi #{friendUsername} ! You are my best friend ! ', "Hello #{friendUsername}, nice to read from you again", "HI #{friendUsername}! YOU'RE MY BEST FRIEND! (but only like #{response.match * 100}% of the time)" ]
-            response.reply response.random friendReplies
-    )
+   # robot.listen(
+   #     (message) -> # Match function
+   #         # Occassionally respond to things that Steve says
+   #         message.user.name is friendUsername and Math.random() > 0.8
+   #     (response) -> # Standard listener callback
+   #         # Let Steve know how happy you are that he exists
+   #         friendReplies = ['Hi #{friendUsername} ! You are my best friend ! ', "Hello #{friendUsername}, nice to read from you again", "HI #{friendUsername}! YOU'RE MY BEST FRIEND! (but only like #{response.match * 100}% of the time)" ]
+   #         response.reply response.random friendReplies
+   # )
 
     # List the log files
     robot.enter (res) ->
