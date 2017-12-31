@@ -1,4 +1,4 @@
-FROM node:0.12-slim
+FROM node:6.12
 MAINTAINER Full Bright <full3right@gmail.com>
 
 # -----------------------------------------------------------------------------
@@ -14,16 +14,26 @@ ENV GITLAB_SHOW_COMMITS_LIST 0
 ENV GITLAB_SHOW_MERGE_DESCRIPTION 0
 ENV HUBOT_NEWRELIC_API_KEY false
 ENV HUBOT_NEWRELIC_API_HOST api.bright-softwares.com
+ENV HUBOT_GOOGLE_CSE_ID unknown
+ENV HUBOT_GOOGLE_CSE_KEY unknown
+ENV HUBOT_SYSTEM_ACCOUNT fullbot
+ENV HUBOT_TV_IPADDRESS 127.0.0.1
+ENV HUBOT_WOLFRAM_APPID unknown
 
 # -----------------------------------------------------------------------------
 # Pre-install
 # -----------------------------------------------------------------------------
-ADD build/ /opt/
+#ADD build/ /opt/
+COPY build/ /opt/
 WORKDIR /opt
 
 # -----------------------------------------------------------------------------
 # Install
 # -----------------------------------------------------------------------------
+#RUN npm install --production; npm cache clean
+#RUN apt-get update; apt-get install -y build-essential python2.7; \
+RUN apt-get update; apt-get install -y build-essential python2.7 python3;
+#RUN npm install --production --python=python2.7; npm cache clean
 RUN npm install --production; npm cache clean
 
 # -----------------------------------------------------------------------------

@@ -1,0 +1,21 @@
+redis:
+    image: redis
+    container_name: redis
+
+hubot:
+    image: fullbright/hubot
+    container_name: garcia-hubot
+    ports:
+        - "9081:8080"
+    restart: always
+    links:
+        - redis:redis
+    environment:
+        HUBOT_GOOGLE_CSE_ID: 004189406742276755974:gfazrbi6a4m 
+        HUBOT_GOOGLE_CSE_KEY: AIzaSyBzzMEySA1YcD0AiWpmkdhBpWLF7KED-NA 
+        HUBOT_SLACK_TOKEN: xoxb-153174715586-RnPM1IPc6x2hTKQXOilZittm 
+        HUBOT_SYSTEM_ACCOUNT: fullhubot
+        HUBOT_TV_IPADDRESS: 192.168.1.14
+        HUBOT_WOLFRAM_APPID: Y8Q5K4-E5LEPR9L4H
+    volumes:
+        - $PWD/build:/opt 
