@@ -11,11 +11,11 @@ hubot:
     links:
         - redis:redis
     environment:
-        HUBOT_GOOGLE_CSE_ID: 004189406742276755974:gfazrbi6a4m 
-        HUBOT_GOOGLE_CSE_KEY: AIzaSyBzzMEySA1YcD0AiWpmkdhBpWLF7KED-NA 
-        HUBOT_SLACK_TOKEN: xoxb-153174715586-RnPM1IPc6x2hTKQXOilZittm 
+        HUBOT_GOOGLE_CSE_ID: thisisa:dummy_cseid
+        HUBOT_GOOGLE_CSE_KEY: thisisa:dummykey 
+        HUBOT_SLACK_TOKEN: thisisa:dummytoken 
         HUBOT_SYSTEM_ACCOUNT: fullhubot
         HUBOT_TV_IPADDRESS: 192.168.1.14
-        HUBOT_WOLFRAM_APPID: Y8Q5K4-E5LEPR9L4H
+        HUBOT_WOLFRAM_APPID: thisisa:dummy_appid
     volumes:
         - $PWD/build:/opt 
