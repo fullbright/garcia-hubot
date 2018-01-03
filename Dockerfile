@@ -25,6 +25,8 @@ ENV HUBOT_WOLFRAM_APPID unknown
 # -----------------------------------------------------------------------------
 #ADD build/ /opt/
 COPY build/ /opt/
+#RUN git clone https://github.com/fullbright/garcia-hubot.git /opt/garcia
+#ADD build/scripts
 WORKDIR /opt
 
 # -----------------------------------------------------------------------------

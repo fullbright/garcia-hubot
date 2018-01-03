@@ -10,12 +10,7 @@ hubot:
     restart: always
     links:
         - redis:redis
-    environment:
-        HUBOT_GOOGLE_CSE_ID: thisisa:dummy_cseid
-        HUBOT_GOOGLE_CSE_KEY: thisisa:dummykey 
-        HUBOT_SLACK_TOKEN: thisisa:dummytoken 
-        HUBOT_SYSTEM_ACCOUNT: fullhubot
-        HUBOT_TV_IPADDRESS: 192.168.1.14
-        HUBOT_WOLFRAM_APPID: thisisa:dummy_appid
+    env_file:
+        - $PWD/.env
     volumes:
         - $PWD/build:/opt 
