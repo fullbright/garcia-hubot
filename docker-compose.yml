@@ -1,7 +1,7 @@
 redis:
     image: redis
     container_name: redis
-
+    restart: always
 hubot:
     image: fullbright/hubot
     container_name: garcia-hubot
